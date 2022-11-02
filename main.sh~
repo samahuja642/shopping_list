@@ -1,0 +1,22 @@
+#!/bin/bash
+option1="Select List"
+# while [ option1!="Cancel" ]
+# do
+option1=$(echo -e "New List\nSelect List\nCancel" | fzf)
+if [ "$option1"="New List" ];
+then
+    echo "Do you want default name or any specific?";
+    default=$(echo -e "Default Name\nSpecific" | fzf)
+    if [ "$default"="Default Name" ];
+    then
+	touch lists/$( date +"%d%m%Y%H%M%S" )
+    else
+	read -p "Specific Name : " filename;
+	touch lists/${filename}
+    fi
+elif [ "$option1"="Select List" ];
+then
+     list_name=$( ls lists/ | fzf-tmux -d 10 )
+     echo list_name
+# done
+fi
